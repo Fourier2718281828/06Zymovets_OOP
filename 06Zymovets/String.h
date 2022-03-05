@@ -21,48 +21,21 @@ public:
 	String(const string&);
 	String(const String&);
 	String(String&&);
+	String(char*&&);
 	~String();
+
+	String& operator=(const String& s)&;
+	String& operator=(const char* s)&;
+	String& operator=(const char)&;
+	String& operator=(String&&)&;
+	String& operator=(char*&&)&;
+
 
 	inline operator string() const { return string(_allocator); }
 	inline const char* c_str() const { return _allocator; }
 	inline size_t length() const { return _len; }
 	inline bool isEmpty() const { return _len == 0; }
 	inline void clear() { *this = String(); }
-
-	inline String& operator=(const String& s)&
-	{
-		if (this == &s)
-		{
-			return *this;
-		}
-
-		delete _allocator;
-		_len = s._len;
-		_allocator = new char[s._len + 1];
-		strcpy(_allocator, s._allocator);
-
-		return *this;
-	}
-
-	inline String& operator=(const char* s)&
-	{
-		delete _allocator;
-		_len = strlen(s);
-		_allocator = new char[_len + 1];
-		strcpy(_allocator, s);
-
-		return *this;
-	}
-
-	inline String& operator=(const char)&
-	{
-
-	}
-
-	inline String& operator=(String&&)&
-	{
-
-	}
 
 	inline char& operator[](const size_t i) 
 	{

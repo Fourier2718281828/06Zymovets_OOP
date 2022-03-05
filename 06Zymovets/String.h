@@ -1,6 +1,8 @@
 #pragma once
 #include<string>
+#include<ostream>
 using std::string;
+using std::ostream;
 
 class String
 {
@@ -9,25 +11,42 @@ private:
 	char* _allocator;
 public:
 	String();
-	explicit String(const char*);
-	String(const char); 
-	explicit String(const string&);
-	String(const String& s, const int multiplayer = 1);
+	String(const char*);
+	String(const string&);
+	String(const String&);
+	String(String&&);
 	~String();
 	operator string() const;
-	operator char* () const;
-	const char* c_str() const { return _allocator; }
-	size_t length() const { return _len; }
-	bool empty() const { return _len == 0; }
-	void clear() { *this = String(); }
-	char& operator[](const size_t);
-	const char& operator[](const size_t) const;
-	bool operator==(const String&) const;
-	bool operator!=(const String&) const;
-	String& operator=(const String&);
-	String& operator=(const char*);
-	String& operator=(const char);
-	String operator+(const String&) const;
+	operator const char* () const;
+	String& operator=(const String&)&;
+	String& operator=(String&&)&;
+	String& operator=(const char*)&;
+	String& operator=(const char)&;
+	inline const char* c_str() const { return _allocator; }
+	inline size_t length() const { return _len; }
+	inline bool isEmpty() const { return _len == 0; }
+	inline void clear() { *this = String(); }
+
+	inline char& operator[](const size_t i) 
+	{
+		if (i < 0 || i >= length()) throw IndexOutOfBounds(i);
+		return _allocator[i];
+	}
+	inline const char& operator[](const size_t) const;
 	String& operator+=(const String&);
 	String& operator+=(const char*);
+
+	class IndexOutOfBounds
+	{
+	private:
+		size_t _index;
+	public:
+		IndexOutOfBounds(const size_t index) : _index(index) { return; }
+		~IndexOutOfBounds() { return; }
+	};
 };
+
+bool operator==(const String&, const String&);
+bool operator!=(const String&, const String&);
+String operator+(const String&, const String&);
+ostream& operator<<(ostream&, const String&);

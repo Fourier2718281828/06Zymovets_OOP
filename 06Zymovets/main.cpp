@@ -6,7 +6,7 @@ using std::endl;
 int main(void)
 {
 	String s1("ab"), s2("cd");
-	cout << "s1 + s2 = " << (s1 + "") << endl;
+	cout << (s1 += "123") << endl;
 
 	return 0;
 }

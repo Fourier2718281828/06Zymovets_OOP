@@ -49,8 +49,8 @@ public:
 		return _allocator[i];
 	}
 
-	inline String& operator+=(const String&);
-	inline String& operator+=(const char*);
+	String& operator+=(const String& s);
+	String& operator+=(const char* s);
 
 	class IndexOutOfBounds
 	{

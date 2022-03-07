@@ -73,7 +73,7 @@ String::String(char*&& s)
 	cout << "--String id" << _id << " created (move-char*-constructor)." << endl;
 #endif // !NDEBUG
 
-	s = nullptr;
+	//s = nullptr;
 
 	return;
 }
@@ -141,6 +141,16 @@ String& String::operator=(char*&& s)&
 	s = nullptr;
 
 	return *this;
+}
+
+String& String::operator+=(const String& s)
+{
+	return *this = *this + s;
+}
+
+String& String::operator+=(const char* s)
+{
+	return *this += String(s);
 }
 
 bool operator==(const String& s1, const String& s2)

@@ -1,6 +1,5 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#include<string>
 #include<iostream>
 using std::string;
 using std::ostream;
@@ -24,18 +23,20 @@ public:
 	String(char*&&);
 	~String();
 
-	String& operator=(const String& s)&;
-	String& operator=(const char* s)&;
-	String& operator=(const char)&;
-	String& operator=(String&&)&;
-	String& operator=(char*&&)&;
+	String& operator=(const String&)	&;
+	String& operator=(const char*)		&;
+	String& operator=(const char)		&;	
+	String& operator=(String&&)			&;
+	String& operator=(char*&&)			&;
+	String& operator+=(const String& s)	&;
+	String& operator+=(const char* s)	&;
+	String& operator+=(const string& s) &;
 
-
-	inline operator string() const { return string(_allocator); }
-	inline const char* c_str() const { return _allocator; }
-	inline size_t length() const { return _len; }
-	inline bool isEmpty() const { return _len == 0; }
-	inline void clear() { *this = String(); }
+	inline operator string()	const { return string(_allocator); }
+	inline const char* c_str()	const { return _allocator		 ; }
+	inline size_t length()		const { return _len				 ; }
+	inline bool isEmpty()		const { return _len == 0		 ; }
+	inline void clear()				  { *this = String()		 ; }
 
 	inline char& operator[](const size_t i) 
 	{
@@ -49,16 +50,13 @@ public:
 		return _allocator[i];
 	}
 
-	String& operator+=(const String& s);
-	String& operator+=(const char* s);
-
 	class IndexOutOfBounds
 	{
 	private:
 		size_t _index;
 	public:
 		IndexOutOfBounds(const size_t index) : _index(index) { return; }
-		~IndexOutOfBounds() { return; }
+		~IndexOutOfBounds()								     { return; }
 	};
 };
 

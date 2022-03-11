@@ -73,7 +73,7 @@ String::String(char*&& s)
 	cout << "--String id" << _id << " created [String(char*&& s)]." << endl;
 #endif // !NDEBUG
 
-	//s = nullptr;
+	s = nullptr;
 
 	return;
 }
@@ -240,11 +240,6 @@ String operator+(const String& s1, const String& s2)
 
 	return std::move(res);
 }
-
-//String operator+(String s1, const String& s2)
-//{
-//	return s1 += s2;
-//}
 
 ostream& operator<<(ostream& o, const String& s)
 {

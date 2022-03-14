@@ -25,7 +25,7 @@ public:
 
 	String& operator=  (const String&)	 &;
 	String& operator=  (const char*)	 &;
-	String& operator=  (const char)		 &;	
+	String& operator=  (const char)		 &;		
 	String& operator=  (String&&)		 &;
 	String& operator=  (char*&&)		 &;
 	String& operator+= (const String& s) &;

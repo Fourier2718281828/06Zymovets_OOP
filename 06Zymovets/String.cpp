@@ -159,7 +159,7 @@ String& String::operator=(char*&& s)&
 	_len = strlen(s);
 	_allocator = s;
 
-	//s = nullptr;
+	s = nullptr;
 
 	return *this;
 }

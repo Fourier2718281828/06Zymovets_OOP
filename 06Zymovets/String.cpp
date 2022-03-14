@@ -91,7 +91,7 @@ String::~String()
 String& String::operator=(const String& s)&
 {
 #ifndef NDEBUG
-	cout << "--String id" << s._id << " assigned to id" << _id << " [operator=(const String& s)&]." << endl;
+	cout << "--String id" << s._id << " copy-assigned to id" << _id << " [operator=(const String& s)&]." << endl;
 #endif // !NDEBUG
 
 	if (this == &s)
@@ -110,7 +110,7 @@ String& String::operator=(const String& s)&
 String& String::operator=(const char* s)&
 {
 #ifndef NDEBUG
-	cout << "--char* " << s << " assigned to id" << _id << " [operator=(const char* s)&]." << endl;
+	cout << "--char* " << s << " copy-assigned to id" << _id << " [operator=(const char* s)&]." << endl;
 #endif // !NDEBUG
 
 	delete _allocator;
@@ -137,7 +137,7 @@ String& String::operator=(const char c)&
 String& String::operator=(String&& s)&
 {
 #ifndef NDEBUG
-	cout << "--String id" << s._id << " assigned to id" << _id << " [operator=(String&& s)&]." << endl;
+	cout << "--String id" << s._id << " move-assigned to id" << _id << " [operator=(String&& s)&]." << endl;
 #endif // !NDEBUG
 
 	delete _allocator;
@@ -153,7 +153,7 @@ String& String::operator=(String&& s)&
 String& String::operator=(char*&& s)&
 {
 #ifndef NDEBUG
-	cout << "--char* " << s << " assigned to id" << _id << " [operator=(char*&& s)&]." << endl;
+	cout << "--char* " << s << " move-assigned to id" << _id << " [operator=(char*&& s)&]." << endl;
 #endif // !NDEBUG
 
 	_len = strlen(s);
@@ -166,47 +166,7 @@ String& String::operator=(char*&& s)&
 
 String& String::operator+=(const String& s)&
 {
-	const size_t res_lengtn = this->length() + s.length() + 1;
-	char* res = new char[res_lengtn];
-
-	for (size_t i = 0; i < res_lengtn - 1; ++i)
-	{
-		res[i] = (i < this->length()) ? this->operator[](i) : s[i - this->length()];
-	}
-
-	res[res_lengtn - 1] = '\0';
-
-	return *this = std::move(res);
-}
-
-String& String::operator+=(const char* s)&
-{
-	const size_t res_lengtn = this->length() + strlen(s) + 1;
-	char* res = new char[res_lengtn];
-
-	for (size_t i = 0; i < res_lengtn - 1; ++i)
-	{
-		res[i] = (i < this->length()) ? this->operator[](i) : s[i - this->length()];
-	}
-
-	res[res_lengtn - 1] = '\0';
-
-	return *this = std::move(res);
-}
-
-String& String::operator+=(const string& s)&
-{
-	const size_t res_lengtn = this->length() + s.length() + 1;
-	char* res = new char[res_lengtn];
-
-	for (size_t i = 0; i < res_lengtn - 1; ++i)
-	{
-		res[i] = (i < this->length()) ? this->operator[](i) : s[i - this->length()];
-	}
-
-	res[res_lengtn - 1] = '\0';
-
-	return *this = std::move(res);
+	return *this = *this + s;
 }
 
 bool operator==(const String& s1, const String& s2)

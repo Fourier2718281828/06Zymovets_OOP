@@ -29,8 +29,6 @@ public:
 	String& operator=  (String&&)		 &;
 	String& operator=  (char*&&)		 &;
 	String& operator+= (const String& s) &;
-	String& operator+= (const char* s)	 &;
-	String& operator+= (const string& s) &;
 
 	inline operator		string ()		const { return string(_allocator); }
 	inline const char*	c_str  ()		const { return _allocator		 ; }

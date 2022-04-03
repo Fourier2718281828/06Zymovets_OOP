@@ -34,7 +34,6 @@ String::String(const char ch)
 	return;
 }
 
-
 String::String(const char* c)
 	: _len(strlen(c)), _id(++freeId), _allocator(new char[_len + 1])
 {
@@ -115,33 +114,6 @@ String& String::operator=(const String& s)&
 	_len = s._len;
 	_allocator = new char[s._len + 1];
 	strcpy(_allocator, s._allocator);
-
-	return *this;
-}
-
-String& String::operator=(const char* s)&
-{
-#ifndef NDEBUG
-	cout << "--char* " << s << " copy-assigned to id" << _id << " [operator=(const char* s)&]." << endl;
-#endif // !NDEBUG
-
-	delete _allocator;
-	_len = strlen(s);
-	_allocator = new char[_len + 1];
-	strcpy(_allocator, s);
-
-	return *this;
-}
-
-String& String::operator=(const char c)&
-{
-#ifndef NDEBUG
-	cout << "--char " << c << " assigned to id" << _id << " [operator=(const char c)&]." << endl;
-#endif // !NDEBUG
-
-	delete _allocator;
-	_len = 1;
-	_allocator = new char[2]{c, '\0'};
 
 	return *this;
 }

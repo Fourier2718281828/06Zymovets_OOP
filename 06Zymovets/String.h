@@ -5,6 +5,7 @@ using std::string;
 using std::ostream;
 using std::cout;
 using std::endl;
+using std::cerr;
 
 //***************************************************
 //Визначити і реалізувати власний клас рядків String:
@@ -35,9 +36,7 @@ public:
 	String (char*&&)      ;
 	~String()             ;
 
-	String& operator=  (const String&)	 &;
-	String& operator=  (const char*)	 &;
-	String& operator=  (const char)		 &;		
+	String& operator=  (const String&)	 &;	
 	String& operator=  (String&&)		 &;
 	String& operator=  (char*&&)		 &;
 	String& operator+= (const String& s) &;
@@ -47,30 +46,38 @@ public:
 	inline size_t		length ()		const { return _len				 ; }
 	inline bool			isEmpty()		const { return _len == 0		 ; }
 	inline void			clear  ()			  { *this = String()		 ; }
+	inline char& operator[](const size_t);
+	inline char	 operator[](const size_t) const;
 
-	inline char& operator[](const size_t i)
-	{
-		if (i < 0 || i >= length()) throw IndexOutOfBounds(i);
-		return _allocator[i];
-	}
-
-	inline char operator[](const size_t i) const
-	{
-		if (i < 0 || i >= length()) throw IndexOutOfBounds(i);
-		return _allocator[i];
-	}
-
-	class IndexOutOfBounds
-	{
-	private:
-		const size_t _index;
-	public:
-		IndexOutOfBounds(const size_t index) : _index(index) { return; }
-		~IndexOutOfBounds()								     { return; }
-	};
+	class IndexOutOfBounds;
 };
+
+class String::IndexOutOfBounds
+{
+private:
+	const size_t _index;
+public:
+	IndexOutOfBounds(const size_t index) : _index(index) { return; }
+	~IndexOutOfBounds()								     { return; }
+	inline void diagnosis()
+	{
+		cerr << "Index out of acceptable bounds:" << _index << endl;
+	}
+};
+
+inline char& String::operator[](const size_t i)
+{
+	if (i < 0 || i >= length()) throw IndexOutOfBounds(i);
+	return _allocator[i];
+}
+
+inline char String::operator[](const size_t i) const
+{
+	if (i < 0 || i >= length()) throw IndexOutOfBounds(i);
+	return _allocator[i];
+}
 
 bool operator==		(const String&, const String&);
 bool operator!=		(const String&, const String&);
 String operator+	(const String&, const String&);
-ostream& operator<< (	  ostream&, const String&);
+ostream& operator<< (ostream&, const String&);

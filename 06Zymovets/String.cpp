@@ -182,7 +182,7 @@ String operator+(const String& s1, const String& s2)
 
 	res[res_lengtn - 1] = '\0';
 
-	return std::move(res);
+	return std::move(res); //String(char*&&) call!
 }
 
 ostream& operator<<(ostream& o, const String& s)

@@ -16,7 +16,7 @@ using std::endl;
 //***************************************************
 
 int main(void)
-{
+{	
 	cout << "#1-----------------------------------------------------------" << endl;
 	{
 		cout << "Testing Constructors and Destructor:" << endl << endl;
@@ -41,6 +41,7 @@ int main(void)
 		cout << "created String :" << s5 << endl << endl;
 
 		cout << "6). String(char*&&):" << endl;
+		cout << "(!Needed for operator+ implementation!)" << endl;
 		String s6(new char[5]{'a', 'b', 'c', 'd', '\0'});
 		cout << "created String :" << s6 << endl << endl;
 
@@ -57,8 +58,11 @@ int main(void)
 		s2 = String("move");
 		cout << endl << "s3 = new char[3]{ 'i', 'j', '\\0' } :" << endl;
 		s3 = new char[3]{ 'i', 'j', '\0' };
+		cout << "(!Needed for operator+ implementation!)" << endl;
 		cout << endl << "s4 += s3 (one object created):" << endl;
 		s4 += s3;
+		cout << endl << "s3 += \"plus\":" << endl;
+		s3 += "plus";
 		cout << endl << "s1 :" << s1 << ", s2 :" << s2 << ", s3 :" << s3 << ", s4 :" << s4 << endl << endl;
 
 	}

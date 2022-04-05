@@ -41,11 +41,11 @@ public:
 	String& operator=  (char*&&)		 &;
 	String& operator+= (const String& s) &;
 
-	inline operator		string ()		const { return string(_allocator); }
-	inline const char*	c_str  ()		const { return _allocator		 ; }
-	inline size_t		length ()		const { return _len				 ; }
-	inline bool			isEmpty()		const { return _len == 0		 ; }
-	inline void			clear  ()			  { *this = String()		 ; }
+	inline operator		string ()		  const { return string(_allocator); }
+	inline const char*	c_str  ()		  const { return _allocator		   ; }
+	inline size_t		length ()		  const { return _len			   ; }
+	inline bool			isEmpty()		  const { return _len == 0		   ; }
+	inline void			clear  ()			    { *this = String()		   ; }
 	inline char& operator[](const size_t);
 	inline char	 operator[](const size_t) const;
 
